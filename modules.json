@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "CS6320",
+    "description": "So Good They Named It Twice"
+  },
+  {
+    "id": 2,
+    "title": "CS6321",
+    "description": "Some more places in the Kingdom"
+  },
+  {
+    "id": 3,
+    "title": "CS6322",
+    "description": "Optimisation"
+  }
+]

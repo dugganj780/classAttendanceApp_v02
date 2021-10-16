@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Class Attendance App</string>
+    <string name="hint_moduleCode">Module Code</string>
+    <string name="hint_moduleTitle">Module Title</string>
+    <string name="button_addModule">Add Module</string>
+    <string name="menu_addModule">Add</string>
+    <string name="menu_back">Back</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="uccYellow">#FFB500</color>
+    <color name="uccRed">#CE1F2C</color>
+    <color name="uccBlue">#003C69</color>
+    <color name="uccBlack">#000000</color>
+    <color name="uccWhite">#ffffff</color>
+    <color name="uccTint">#EFEFF0</color>
+    <color name="uccLimestone">#BBBCBC</color>
+    <color name="uccMauve">#7566A0</color>
+    <color name="uccOgham">#C6893F</color>
+    <color name="uccEarthRed">#B46A55</color>
+    <color name="uccGreen">#74AA50</color>
+    <color name="uccSkyBlue">#69B3E7</color>
+</resources>

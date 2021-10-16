@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ClassAttendanceApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/uccYellow</item>
+        <item name="colorPrimaryVariant">@color/uccBlue</item>
+        <item name="colorOnPrimary">@color/uccBlack</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/uccBlue</item>
+        <item name="colorSecondaryVariant">@color/uccMauve</item>
+        <item name="colorOnSecondary">@color/uccGreen</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
