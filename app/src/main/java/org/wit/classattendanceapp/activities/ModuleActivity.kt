@@ -15,12 +15,14 @@ import org.wit.classattendanceapp.adapters.LectureAdapter
 import org.wit.classattendanceapp.adapters.LectureListener
 import org.wit.classattendanceapp.adapters.ModuleAdapter
 import org.wit.classattendanceapp.models.LectureModel
+import org.wit.classattendanceapp.models.StudentModel
 import timber.log.Timber.i
 
 class ModuleActivity : AppCompatActivity(), LectureListener{
 
     private lateinit var binding: ActivityModuleBinding
     var module = ModuleModel()
+    var student = StudentModel()
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,9 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
         if (intent.hasExtra("module_edit")) {
             val layoutManager = LinearLayoutManager(this)
             module = intent.extras?.getParcelable("module_edit")!!
+            if (intent.hasExtra("student_logged_in")){
+                student = intent.extras?.getParcelable("student_logged_in")!!
+            }
             i("module id is ${module.id}")
             binding.recyclerView.layoutManager = layoutManager
             binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
@@ -82,6 +87,7 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
         val launcherIntent = Intent(this, LectureActivity::class.java)
         launcherIntent.putExtra("lecture_selected", lecture)
         launcherIntent.putExtra("module_selected", module)
+        launcherIntent.putExtra("student_logged_in", student)
         startActivityForResult(launcherIntent, 0)
     }
 }

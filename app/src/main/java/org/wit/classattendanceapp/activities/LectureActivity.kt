@@ -10,6 +10,7 @@ import org.wit.classattendanceapp.databinding.ActivityModuleBinding
 import org.wit.classattendanceapp.main.MainApp
 import org.wit.classattendanceapp.models.LectureModel
 import org.wit.classattendanceapp.models.ModuleModel
+import org.wit.classattendanceapp.models.StudentModel
 import timber.log.Timber
 import timber.log.Timber.i
 
@@ -21,6 +22,7 @@ class LectureActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLectureBinding
     var module = ModuleModel()
     var lecture = LectureModel(0,"","","","")
+    var student = StudentModel()
     var attendance = ArrayList<signIn>()
     lateinit var app: MainApp
 
@@ -38,6 +40,8 @@ class LectureActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(this)
             lecture = intent.extras?.getParcelable("lecture_selected")!!
             module = intent.extras?.getParcelable("module_selected")!!
+            student = intent.extras?.getParcelable("student_logged_in")!!
+
             Timber.i("module id is ${module.id}")
             //binding.recyclerView.layoutManager = layoutManager
            // binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
@@ -46,7 +50,7 @@ class LectureActivity : AppCompatActivity() {
         binding.btnSignInPerson.setOnClickListener {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            var signIn = signIn(module.moduleCode, lecture.day, lecture.startTime, currentDate, true,false, false)
+            var signIn = signIn(student.studentID, student.firstName, student.surname, module.moduleCode, lecture.day, lecture.startTime, currentDate, true,false, false)
 
             i("New Sign In: $signIn")
             attendance.add(signIn.copy())
@@ -57,7 +61,7 @@ class LectureActivity : AppCompatActivity() {
         binding.btnSignInLive.setOnClickListener {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            var signIn = signIn(module.moduleCode, lecture.day, lecture.startTime, currentDate, false,true, false)
+            var signIn = signIn(student.studentID, student.firstName, student.surname, module.moduleCode, lecture.day, lecture.startTime, currentDate, false,true, false)
 
             i("New Sign In: $signIn")
             attendance.add(signIn.copy())
@@ -68,7 +72,7 @@ class LectureActivity : AppCompatActivity() {
         binding.btnSignInRecording.setOnClickListener {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            var signIn: signIn = signIn(module.moduleCode, lecture.day, lecture.startTime, currentDate, false,false, true)
+            var signIn: signIn = signIn(student.studentID, student.firstName, student.surname, module.moduleCode, lecture.day, lecture.startTime, currentDate, false,false, true)
 
             i("New Sign In: $signIn")
             attendance.add(signIn.copy())
@@ -79,6 +83,6 @@ class LectureActivity : AppCompatActivity() {
     }
 }
 
-data class signIn(var moduleCode: String = "", var day:String = "", var startTime: String = "",
+data class signIn(var studentID: Long = 0, var firstName:String ="", var surname:String ="", var moduleCode: String = "", var day:String = "", var startTime: String = "",
                   var signTime: String = "", var inPerson: Boolean = false, var live: Boolean = false,
                   var recording: Boolean = true){}

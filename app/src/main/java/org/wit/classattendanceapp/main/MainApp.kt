@@ -4,10 +4,18 @@ import android.app.Application
 import org.wit.classattendanceapp.models.LectureModel
 import org.wit.classattendanceapp.models.ModuleMemStore
 import org.wit.classattendanceapp.models.ModuleModel
+import org.wit.classattendanceapp.models.StudentModel
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application() {
+
+    var students = ArrayList<StudentModel>()
+    var john = StudentModel(1234567,"John","Lennon","thebeatles")
+    var paul = StudentModel(7654321,"Paul","McCartney","thebeatles")
+    var ringo = StudentModel(4561237,"Ringo","Starr","yellowsubmarine")
+    var george = StudentModel(7123456,"George","Harrison","thebeatles")
+
 
     val modules = ModuleMemStore()
     val lecture01 = LectureModel(1,"14:00","13:00","Monday","WGB_G03")
@@ -25,6 +33,11 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Class App started")
+
+        students.add(john.copy())
+        students.add(paul.copy())
+        students.add(ringo.copy())
+        students.add(george.copy())
 
         modules.create(ModuleModel(1,"CS6312","Mobile Devices and Systems", list01))
         modules.create(ModuleModel(2,"CS6321","Model-Based Software Development", list02))
