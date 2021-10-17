@@ -81,6 +81,7 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
     override fun onLectureClick(lecture: LectureModel){
         val launcherIntent = Intent(this, LectureActivity::class.java)
         launcherIntent.putExtra("lecture_selected", lecture)
+        launcherIntent.putExtra("module_selected", module)
         startActivityForResult(launcherIntent, 0)
     }
 }
