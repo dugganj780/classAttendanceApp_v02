@@ -1,7 +1,7 @@
 package org.wit.classattendanceapp.main
 
 import android.app.Application
-import org.wit.classattendanceapp.models.ModuleJSONStore
+import org.wit.classattendanceapp.models.LectureModel
 import org.wit.classattendanceapp.models.ModuleMemStore
 import org.wit.classattendanceapp.models.ModuleModel
 import timber.log.Timber
@@ -10,15 +10,25 @@ import timber.log.Timber.i
 class MainApp : Application() {
 
     val modules = ModuleMemStore()
+    val lecture01 = LectureModel(1,"14:00","13:00","Monday","WGB_G03")
+    val lecture02 = LectureModel(2,"09:00","10:00","Tuesday","WGB_G03")
+    val lecture03 = LectureModel(3,"11:00","12:00","Tuesday","WGB_G15")
+    val lecture04 = LectureModel(4,"16:00","17:00","Wednesday","WGB_G02")
+    val lecture05 = LectureModel(5,"14:00","15:00","Thursday","WGB_G05")
+    val lecture06 = LectureModel(6,"12:00","13:00","Friday","WGB_1.10")
+
+    var list01 = mutableListOf(lecture01,lecture03)
+    var list02 = mutableListOf(lecture02,lecture06)
+    var list03 = mutableListOf(lecture04,lecture05)
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Class App started")
 
-        modules.create(ModuleModel(1,"CS6312","Mobile Devices and Systems"))
-        modules.create(ModuleModel(2,"CS6321","Model-Based Software Development"))
-        modules.create(ModuleModel(3,"CS6322","Optimisation"))
+        modules.create(ModuleModel(1,"CS6312","Mobile Devices and Systems", list01))
+        modules.create(ModuleModel(2,"CS6321","Model-Based Software Development", list02))
+        modules.create(ModuleModel(3,"CS6322","Optimisation", list03))
 
     }
 }

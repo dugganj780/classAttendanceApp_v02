@@ -1,26 +1,31 @@
 package org.wit.classattendanceapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import org.wit.classattendanceapp.R
-import org.wit.classattendanceapp.databinding.ActivityMainBinding
+import org.wit.classattendanceapp.databinding.ActivityModuleBinding
 import org.wit.classattendanceapp.main.MainApp
 import org.wit.classattendanceapp.models.ModuleModel
-import timber.log.Timber
+import org.wit.classattendanceapp.adapters.LectureAdapter
+import org.wit.classattendanceapp.adapters.LectureListener
+import org.wit.classattendanceapp.adapters.ModuleAdapter
+import org.wit.classattendanceapp.models.LectureModel
 import timber.log.Timber.i
 
-class ModuleActivity : AppCompatActivity() {
+class ModuleActivity : AppCompatActivity(), LectureListener{
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityModuleBinding
     var module = ModuleModel()
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityModuleBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -30,11 +35,14 @@ class ModuleActivity : AppCompatActivity() {
         i("Class Activity started...")
 
         if (intent.hasExtra("module_edit")) {
+            val layoutManager = LinearLayoutManager(this)
             module = intent.extras?.getParcelable("module_edit")!!
-            binding.moduleTitle.setText(module.title)
-            binding.moduleCode.setText(module.moduleCode)
+            i("module id is ${module.id}")
+            binding.recyclerView.layoutManager = layoutManager
+            binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
         }
 
+        /*
         binding.btnAdd.setOnClickListener() {
             module.moduleCode = binding.moduleCode.text.toString()
             module.title = binding.moduleTitle.text.toString()
@@ -51,7 +59,10 @@ class ModuleActivity : AppCompatActivity() {
                     .show()
             }
         }
+     */
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_module, menu)
@@ -65,5 +76,11 @@ class ModuleActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onLectureClick(lecture: LectureModel){
+        val launcherIntent = Intent(this, LectureActivity::class.java)
+        launcherIntent.putExtra("lecture_selected", lecture)
+        startActivityForResult(launcherIntent, 0)
     }
 }

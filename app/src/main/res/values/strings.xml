@@ -5,4 +5,7 @@
     <string name="button_addModule">Add Module</string>
     <string name="menu_addModule">Add</string>
     <string name="menu_back">Back</string>
+    <string name="button_signInPerson">In Attendance</string>
+    <string name="button_signInLive">Watching Live Online</string>
+    <string name="button_signInRecording">Watching a Recording</string>
 </resources>

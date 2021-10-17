@@ -64,6 +64,17 @@ class ModuleJSONStore: ModuleStore {
         modules.forEach { logger.info("${it}") }
     }
 
+    override fun findOne(id: Long) : ModuleModel? {
+        var foundModule: ModuleModel? = modules.find { p -> p.id == id }
+        return foundModule
+    }
+
+    override fun findLectures(id: Long) : List<LectureModel>{
+        var foundModule: ModuleModel? = modules.find { p -> p.id == id }
+        var lectures = foundModule!!.lectures
+        return lectures
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(modules, listType)
         write(JSON_FILE, jsonString)
