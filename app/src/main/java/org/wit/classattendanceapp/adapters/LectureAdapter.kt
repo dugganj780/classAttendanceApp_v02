@@ -40,6 +40,7 @@ class LectureAdapter(private var lectures: List<LectureModel>, private val liste
             binding.day.text = lecture.day
             binding.lectureTimes.text = lectureTimes
             binding.lectureLocation.text = lecture.location
+            binding.cancelMessage.text = lecture.cancelMessage
             binding.root.setOnClickListener{listener.onLectureClick(lecture)}
         }
     }

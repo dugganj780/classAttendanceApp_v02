@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.classattendanceapp.R
 import org.wit.classattendanceapp.adapters.LectureAdapter
+import org.wit.classattendanceapp.databinding.ActivityLectureAdminBinding
 import org.wit.classattendanceapp.databinding.ActivityLectureBinding
 import org.wit.classattendanceapp.databinding.ActivityModuleBinding
 import org.wit.classattendanceapp.main.MainApp
@@ -19,7 +20,7 @@ import java.util.*
 
 class LectureActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLectureBinding
+
     var module = ModuleModel()
     var lecture = LectureModel(0,"","","","")
     var student = StudentModel()
@@ -28,13 +29,6 @@ class LectureActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLectureBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.toolbarLecture.title = title
-        setSupportActionBar(binding.toolbarLecture)
-
-        app = application as MainApp
 
         if (intent.hasExtra("lecture_selected")) {
             val layoutManager = LinearLayoutManager(this)
@@ -44,42 +38,109 @@ class LectureActivity : AppCompatActivity() {
 
             Timber.i("module id is ${module.id}")
             //binding.recyclerView.layoutManager = layoutManager
-           // binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
+            // binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
         }
 
-        binding.btnSignInPerson.setOnClickListener {
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
-            var signIn = signIn(student.studentID, student.firstName, student.surname, module.moduleCode, lecture.day, lecture.startTime, currentDate, true,false, false)
+        if (!student.isAdmin) {
+            lateinit var binding: ActivityLectureBinding
+            binding = ActivityLectureBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-            i("New Sign In: $signIn")
-            attendance.add(signIn.copy())
-            setResult(RESULT_OK)
-            finish()
+            binding.toolbarLecture.title = title
+            setSupportActionBar(binding.toolbarLecture)
+
+            app = application as MainApp
+
+
+
+            binding.btnSignInPerson.setOnClickListener {
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
+                var signIn = signIn(
+                    student.studentID,
+                    student.firstName,
+                    student.surname,
+                    module.moduleCode,
+                    lecture.day,
+                    lecture.startTime,
+                    currentDate,
+                    true,
+                    false,
+                    false
+                )
+
+                i("New Sign In: $signIn")
+                attendance.add(signIn.copy())
+                setResult(RESULT_OK)
+                finish()
+            }
+
+            binding.btnSignInLive.setOnClickListener {
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
+                var signIn = signIn(
+                    student.studentID,
+                    student.firstName,
+                    student.surname,
+                    module.moduleCode,
+                    lecture.day,
+                    lecture.startTime,
+                    currentDate,
+                    false,
+                    true,
+                    false
+                )
+
+                i("New Sign In: $signIn")
+                attendance.add(signIn.copy())
+                setResult(RESULT_OK)
+                finish()
+            }
+
+            binding.btnSignInRecording.setOnClickListener {
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
+                var signIn: signIn = signIn(
+                    student.studentID,
+                    student.firstName,
+                    student.surname,
+                    module.moduleCode,
+                    lecture.day,
+                    lecture.startTime,
+                    currentDate,
+                    false,
+                    false,
+                    true
+                )
+
+                i("New Sign In: $signIn")
+                attendance.add(signIn.copy())
+                setResult(RESULT_OK)
+                finish()
+            }
+
         }
 
-        binding.btnSignInLive.setOnClickListener {
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
-            var signIn = signIn(student.studentID, student.firstName, student.surname, module.moduleCode, lecture.day, lecture.startTime, currentDate, false,true, false)
+        else{
 
-            i("New Sign In: $signIn")
-            attendance.add(signIn.copy())
-            setResult(RESULT_OK)
-            finish()
+            lateinit var binding: ActivityLectureAdminBinding
+            binding = ActivityLectureAdminBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            binding.toolbarLecture.title = title
+            setSupportActionBar(binding.toolbarLecture)
+
+            app = application as MainApp
+
+            binding.btnCancelLecture.setOnClickListener {
+                lecture.cancelMessage = binding.cancelMessage.text.toString()
+                app.modules.updateLecture(module,lecture)
+                i("$lecture")
+                i("$module")
+                setResult(RESULT_OK)
+                finish()
+            }
         }
-
-        binding.btnSignInRecording.setOnClickListener {
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-            val currentDate = sdf.format(Date())
-            var signIn: signIn = signIn(student.studentID, student.firstName, student.surname, module.moduleCode, lecture.day, lecture.startTime, currentDate, false,false, true)
-
-            i("New Sign In: $signIn")
-            attendance.add(signIn.copy())
-            setResult(RESULT_OK)
-            finish()
-        }
-
     }
 }
 

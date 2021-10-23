@@ -15,6 +15,7 @@ class MainApp : Application() {
     var paul = StudentModel(7654321,"Paul","McCartney","thebeatles")
     var ringo = StudentModel(4561237,"Ringo","Starr","yellowsubmarine")
     var george = StudentModel(7123456,"George","Harrison","thebeatles")
+    var admin = StudentModel(1,"Admin","Admin","test",true)
 
 
     val modules = ModuleMemStore()
@@ -38,6 +39,7 @@ class MainApp : Application() {
         students.add(paul.copy())
         students.add(ringo.copy())
         students.add(george.copy())
+        students.add(admin.copy())
 
         modules.create(ModuleModel(1,"CS6312","Mobile Devices and Systems", list01))
         modules.create(ModuleModel(2,"CS6321","Model-Based Software Development", list02))

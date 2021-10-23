@@ -34,6 +34,14 @@
             android:layout_below="@id/day"
             android:layout_toRightOf="@id/lectureTimes"
             tools:text="Location" />
+        <TextView
+            android:id="@+id/cancelMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lectureTimes"
+            android:textSize="20dp"
+            android:textColor="@color/uccRed"
+            tools:text="Message" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

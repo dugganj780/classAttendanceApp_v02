@@ -75,6 +75,24 @@ class ModuleJSONStore: ModuleStore {
         return lectures
     }
 
+    override fun updateLecture(module: ModuleModel, lecture: LectureModel) {
+        //var foundModule: ModuleModel? = modules.find { p -> p.id == id }
+        var lectures = module.lectures
+        //var lecture = LectureModel(1,"","","","","")
+
+        val iterator = lectures.listIterator()
+        for(item in iterator){
+            if(item.id == lecture.id){
+                item.startTime = lecture.startTime
+                item.endTime = lecture.endTime
+                item.day = lecture.day
+                item.location = lecture.location
+                item.cancelMessage = lecture.cancelMessage
+            }
+        }
+
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(modules, listType)
         write(JSON_FILE, jsonString)

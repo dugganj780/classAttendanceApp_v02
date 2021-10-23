@@ -5,4 +5,4 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class StudentModel(var studentID: Long =0, var firstName: String = "", var surname: String = "",
-                        var password: String =""): Parcelable
+                        var password: String ="", var isAdmin:Boolean = false): Parcelable

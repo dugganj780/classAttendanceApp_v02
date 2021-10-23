@@ -11,4 +11,6 @@
     <string name="button_login">Login</string>
     <string name="hint_studentId">Student Number</string>
     <string name="hint_password">Password</string>
+    <string name="hint_cancelMessage">Enter message if cancelling</string>
+    <string name="button_cancelLecture">Cancel Lecture</string>
 </resources>
