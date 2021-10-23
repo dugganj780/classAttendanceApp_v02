@@ -8,6 +8,7 @@ fun generateARandomId(): Long {
 class ModuleMemStore : ModuleStore {
 
     val modules = ArrayList<ModuleModel>()
+    val users = ArrayList<StudentModel>()
 
 
     override fun findAll(): List<ModuleModel> {
@@ -53,6 +54,14 @@ class ModuleMemStore : ModuleStore {
             }
         }
 
+    }
+
+    override fun findAllUsers(): List<StudentModel> {
+        return users
+    }
+
+    override fun createUser(student: StudentModel) {
+        users.add(student)
     }
 
 

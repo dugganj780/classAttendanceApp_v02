@@ -9,8 +9,12 @@
     <string name="button_signInLive">Watching Live Online</string>
     <string name="button_signInRecording">Watching a Recording</string>
     <string name="button_login">Login</string>
+    <string name="button_createAccount">Create Account</string>
     <string name="hint_studentId">Student Number</string>
     <string name="hint_password">Password</string>
+    <string name="hint_firstName">First Name</string>
+    <string name="hint_surname">Surname</string>
     <string name="hint_cancelMessage">Enter message if cancelling</string>
     <string name="button_cancelLecture">Cancel Lecture</string>
+    <string name="data_missing">Data missing. Please check and try again.</string>
 </resources>

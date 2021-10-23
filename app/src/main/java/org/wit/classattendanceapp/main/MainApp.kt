@@ -10,7 +10,7 @@ import timber.log.Timber.i
 
 class MainApp : Application() {
 
-    var students = ArrayList<StudentModel>()
+    var students = ModuleMemStore()
     var john = StudentModel(1234567,"John","Lennon","thebeatles")
     var paul = StudentModel(7654321,"Paul","McCartney","thebeatles")
     var ringo = StudentModel(4561237,"Ringo","Starr","yellowsubmarine")
@@ -35,11 +35,11 @@ class MainApp : Application() {
         Timber.plant(Timber.DebugTree())
         i("Class App started")
 
-        students.add(john.copy())
-        students.add(paul.copy())
-        students.add(ringo.copy())
-        students.add(george.copy())
-        students.add(admin.copy())
+        students.createUser(john.copy())
+        students.createUser(paul.copy())
+        students.createUser(ringo.copy())
+        students.createUser(george.copy())
+        students.createUser(admin.copy())
 
         modules.create(ModuleModel(1,"CS6312","Mobile Devices and Systems", list01))
         modules.create(ModuleModel(2,"CS6321","Model-Based Software Development", list02))

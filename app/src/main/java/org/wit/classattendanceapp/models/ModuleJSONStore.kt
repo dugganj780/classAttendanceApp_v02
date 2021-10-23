@@ -22,6 +22,7 @@ fun generateRandomId(): Long {
 
 class ModuleJSONStore: ModuleStore {
     var modules = mutableListOf<ModuleModel>()
+    val users = mutableListOf<StudentModel>()
 
     init {
         if (exists(JSON_FILE)) {
@@ -101,5 +102,13 @@ class ModuleJSONStore: ModuleStore {
     private fun deserialize() {
         val jsonString = read(JSON_FILE)
         modules = Gson().fromJson(jsonString, listType)
+    }
+
+    override fun findAllUsers(): List<StudentModel> {
+        return users
+    }
+
+    override fun createUser(student: StudentModel) {
+        users.add(student)
     }
 }

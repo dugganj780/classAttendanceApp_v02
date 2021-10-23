@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
             student.studentID = binding.studentId.text.toString().toLong()
             student.password = binding.password.text.toString()
 
-            val iterator = app.students.listIterator()
+            val iterator = app.students.findAllUsers().listIterator()
             for(item in iterator){
                 i("${item.studentID}")
                 i("${item.password}")
