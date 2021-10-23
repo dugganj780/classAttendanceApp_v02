@@ -9,4 +9,5 @@ interface ModuleStore {
     fun updateLecture(module: ModuleModel, lecture: LectureModel)
     fun findAllUsers():List<StudentModel>
     fun createUser(student:StudentModel)
+    fun updateUser(student:StudentModel)
 }

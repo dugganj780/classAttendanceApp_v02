@@ -17,4 +17,8 @@
     <string name="hint_cancelMessage">Enter message if cancelling</string>
     <string name="button_cancelLecture">Cancel Lecture</string>
     <string name="data_missing">Data missing. Please check and try again.</string>
+    <string name="menu_allModules">All Modules</string>
+    <string name="menu_myModules">My Modules</string>
+    <string name="menu_myAccount">My Account</string>
+    <string name="menu_logout">Logout</string>
 </resources>

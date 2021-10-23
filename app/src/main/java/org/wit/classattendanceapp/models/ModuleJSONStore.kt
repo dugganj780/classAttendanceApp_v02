@@ -111,4 +111,14 @@ class ModuleJSONStore: ModuleStore {
     override fun createUser(student: StudentModel) {
         users.add(student)
     }
+
+    override fun updateUser(student: StudentModel) {
+        var foundUser: StudentModel? = users.find { p -> p.studentID == student.studentID }
+        if (foundUser != null) {
+            foundUser.firstName = student.firstName
+            foundUser.surname = student.surname
+            foundUser.studentID = student.studentID
+            foundUser.password = student.password
+        }
+    }
 }

@@ -44,8 +44,25 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.item_add -> {
-                val launcherIntent = Intent(this, ModuleActivity::class.java)
+            R.id.all_modules -> {
+                val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.my_modules -> {
+                val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.my_account -> {
+                val launcherIntent = Intent(this, CreateAccountActivity::class.java)
+                launcherIntent.putExtra("student_edit", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.logout -> {
+                val launcherIntent = Intent(this, LaunchActivity::class.java)
+                launcherIntent.removeExtra("student_logged_in")
+                launcherIntent.removeExtra("module_edit")
+                launcherIntent.removeExtra("lecture_selected")
+
                 startActivityForResult(launcherIntent,0)
             }
         }
@@ -57,6 +74,11 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
         launcherIntent.putExtra("module_edit", module)
         launcherIntent.putExtra("student_logged_in", student)
         startActivityForResult(launcherIntent, 0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
 
