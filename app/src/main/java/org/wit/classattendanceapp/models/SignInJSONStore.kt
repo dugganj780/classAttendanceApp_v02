@@ -10,6 +10,7 @@ import mu.KotlinLogging
 import java.util.*
 import java.lang.reflect.Type
 import org.wit.classattendanceapp.helpers.*
+import timber.log.Timber.i
 
 const val JSON_FILE_SIGNIN = "attendance.json"
 val gsonBuilderSignIn = GsonBuilder().setPrettyPrinting().registerTypeAdapter(Uri::class.java,
@@ -75,8 +76,10 @@ class SignInJSONStore(private val context: Context): SignInStore {
  */
 
     override fun moduleSignIns(module: ModuleModel): MutableList<SignInModel> {
+        i("$module")
         var foundModule: ModuleModel? = modules.find { p -> p.id == module.id }
         var moduleAttendance = mutableListOf<SignInModel>()
+        i("$foundModule")
 
         if (foundModule != null) {
 
@@ -85,16 +88,21 @@ class SignInJSONStore(private val context: Context): SignInStore {
             val iterator = attendance.listIterator()
             for (item in iterator) {
                 if (item.moduleCode == foundModule.moduleCode) {
+                    i("$foundModule")
                     moduleAttendance.add(item.copy())
+
                 }
             }
         }
+        i("$moduleAttendance")
         return moduleAttendance
     }
 
     private fun deserialize() {
         val jsonStringSignIn = read(context, JSON_FILE_SIGNIN)
+        val jsonString = read(context, JSON_FILE)
         attendance = gsonBuilderSignIn.fromJson(jsonStringSignIn, listTypeSignIn)
+        modules = gsonBuilder.fromJson(jsonString, listType)
         //users = gsonBuilder.fromJson(jsonString, listType)
     }
 

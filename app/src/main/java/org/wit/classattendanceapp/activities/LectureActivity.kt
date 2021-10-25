@@ -1,5 +1,6 @@
 package org.wit.classattendanceapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -139,6 +140,13 @@ class LectureActivity : AppCompatActivity() {
                 i("$module")
                 setResult(RESULT_OK)
                 finish()
+            }
+            binding.btnSeeAttendance.setOnClickListener {
+                val launcherIntent = Intent(this, AttendanceActivity::class.java)
+                launcherIntent.putExtra("lecture_selected", lecture)
+                launcherIntent.putExtra("module_selected", module)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent, 0)
             }
         }
     }

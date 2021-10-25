@@ -10,6 +10,7 @@ import mu.KotlinLogging
 import java.util.*
 import java.lang.reflect.Type
 import org.wit.classattendanceapp.helpers.*
+import timber.log.Timber.i
 
 const val JSON_FILE_USERS = "users.json"
 val gsonBuilderUsers = GsonBuilder().setPrettyPrinting().registerTypeAdapter(Uri::class.java,
