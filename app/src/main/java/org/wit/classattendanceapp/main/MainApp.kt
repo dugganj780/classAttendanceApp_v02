@@ -17,7 +17,8 @@ class MainApp : Application() {
 */
 
     lateinit var modules: ModuleStore
-/*
+    lateinit var attendance: SignInStore
+
     val lecture01 = LectureModel(1,"14:00","13:00","Monday","WGB_G03")
     val lecture02 = LectureModel(2,"09:00","10:00","Tuesday","WGB_G03")
     val lecture03 = LectureModel(3,"11:00","12:00","Tuesday","WGB_G15")
@@ -28,7 +29,7 @@ class MainApp : Application() {
     var list01 = mutableListOf(lecture01,lecture03)
     var list02 = mutableListOf(lecture02,lecture06)
     var list03 = mutableListOf(lecture04,lecture05)
-*/
+
 
 
     override fun onCreate() {
@@ -38,6 +39,7 @@ class MainApp : Application() {
 
         modules = ModuleJSONStore(applicationContext)
         students = UserJSONStore(applicationContext)
+        attendance = SignInJSONStore(applicationContext)
 /*
         students.createUser(john.copy())
         students.createUser(paul.copy())
@@ -45,11 +47,13 @@ class MainApp : Application() {
         students.createUser(george.copy())
         students.createUser(admin.copy())
 
+ */
+
 
         modules.create(ModuleModel(1,"CS6312","Mobile Devices and Systems", list01))
         modules.create(ModuleModel(2,"CS6321","Model-Based Software Development", list02))
         modules.create(ModuleModel(3,"CS6322","Optimisation", list03))
-*/
+
 
     }
 }
