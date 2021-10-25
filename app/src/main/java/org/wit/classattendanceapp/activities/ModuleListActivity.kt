@@ -26,7 +26,7 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
         super.onCreate(savedInstanceState)
         binding= ActivityModuleListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = "All Modules"
         setSupportActionBar(binding.toolbar)
 
         app = application as MainApp

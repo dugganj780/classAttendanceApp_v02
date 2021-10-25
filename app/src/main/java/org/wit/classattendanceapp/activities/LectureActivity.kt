@@ -47,7 +47,7 @@ class LectureActivity : AppCompatActivity() {
             binding = ActivityLectureBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            binding.toolbarLecture.title = title
+            binding.toolbarLecture.title = module.moduleCode
             setSupportActionBar(binding.toolbarLecture)
 
             app = application as MainApp
@@ -144,7 +144,7 @@ class LectureActivity : AppCompatActivity() {
             binding = ActivityLectureAdminBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            binding.toolbarLecture.title = title
+            binding.toolbarLecture.title = module.moduleCode
             setSupportActionBar(binding.toolbarLecture)
 
             app = application as MainApp

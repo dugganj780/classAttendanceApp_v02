@@ -31,7 +31,7 @@ class AttendanceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = module.moduleCode
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp

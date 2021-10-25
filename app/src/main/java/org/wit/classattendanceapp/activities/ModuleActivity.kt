@@ -29,8 +29,7 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
         super.onCreate(savedInstanceState)
         binding = ActivityModuleBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
-        setSupportActionBar(binding.toolbarAdd)
+
 
         app = application as MainApp
 
@@ -43,6 +42,8 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
                 student = intent.extras?.getParcelable("student_logged_in")!!
             }
             i("module id is ${module.id}")
+            binding.toolbarAdd.title = module.moduleCode
+            setSupportActionBar(binding.toolbarAdd)
             binding.recyclerView.layoutManager = layoutManager
             binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
         }
