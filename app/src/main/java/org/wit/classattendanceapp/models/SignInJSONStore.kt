@@ -75,10 +75,11 @@ class SignInJSONStore(private val context: Context): SignInStore {
     }
  */
 
-    override fun moduleSignIns(module: ModuleModel): MutableList<SignInModel> {
+    override fun moduleSignIns(module: ModuleModel,lecture: LectureModel): MutableList<SignInModel> {
         i("$module")
         var foundModule: ModuleModel? = modules.find { p -> p.id == module.id }
         var moduleAttendance = mutableListOf<SignInModel>()
+        var moduleAttendanceByDay = mutableListOf<SignInModel>()
         i("$foundModule")
 
         if (foundModule != null) {
@@ -88,14 +89,21 @@ class SignInJSONStore(private val context: Context): SignInStore {
             val iterator = attendance.listIterator()
             for (item in iterator) {
                 if (item.moduleCode == foundModule.moduleCode) {
-                    i("$foundModule")
-                    moduleAttendance.add(item.copy())
-
+                            i("$foundModule")
+                            moduleAttendance.add(item.copy())
+                        }
+                    }
+            val dayIterator = moduleAttendance.listIterator()
+            for(foundLecture in dayIterator) {
+                if (foundLecture.day == lecture.day) {
+                    i("$foundLecture")
+                    moduleAttendanceByDay.add(foundLecture.copy())
                 }
             }
+
         }
         i("$moduleAttendance")
-        return moduleAttendance
+        return moduleAttendanceByDay
     }
 
     private fun deserialize() {

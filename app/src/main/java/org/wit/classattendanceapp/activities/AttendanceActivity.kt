@@ -24,6 +24,7 @@ class AttendanceActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAttendanceBinding
     var module = ModuleModel()
+    var lecture = LectureModel(0,"","","","","")
     var student = StudentModel()
     lateinit var app: MainApp
 
@@ -41,7 +42,8 @@ class AttendanceActivity : AppCompatActivity() {
         if (intent.hasExtra("module_selected")) {
             val layoutManager = LinearLayoutManager(this)
             module = intent.extras?.getParcelable("module_selected")!!
-            var attendance = app.attendance.moduleSignIns(module)
+            lecture = intent.extras?.getParcelable("lecture_selected")!!
+            var attendance = app.attendance.moduleSignIns(module,lecture)
 
             i("module id is ${module.id}")
             i("$attendance")
