@@ -1,17 +1,20 @@
 package org.wit.classattendanceapp.models
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import android.content.Context
+import android.net.Uri
+
+import com.google.gson.*
 import com.google.gson.reflect.TypeToken
+import timber.log.Timber
 import mu.KotlinLogging
 import java.util.*
+import java.lang.reflect.Type
 import org.wit.classattendanceapp.helpers.*
 
-private val logger = KotlinLogging.logger {}
-
-val JSON_FILE = "modules.json"
-val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<java.util.ArrayList<ModuleModel>>() {}.type
+const val JSON_FILE = "modules.json"
+val gsonBuilder = GsonBuilder().setPrettyPrinting().registerTypeAdapter(Uri::class.java,
+    ModuleJSONStore.UriParser()).create()
+val listType: Type = object:TypeToken<java.util.ArrayList<ModuleModel>>() {}.type
 
 
 fun generateRandomId(): Long {
@@ -20,12 +23,12 @@ fun generateRandomId(): Long {
 
 
 
-class ModuleJSONStore: ModuleStore {
+class ModuleJSONStore(private val context: Context): ModuleStore {
     var modules = mutableListOf<ModuleModel>()
-    val users = mutableListOf<StudentModel>()
+    var users = mutableListOf<StudentModel>()
 
     init {
-        if (exists(JSON_FILE)) {
+        if (exists(context, JSON_FILE)) {
             deserialize()
         }
     }
@@ -43,6 +46,7 @@ class ModuleJSONStore: ModuleStore {
         module.id = generateRandomId()
         modules.add(module)
         serialize()
+        //serializeUsers()
     }
 /*
     override fun update(module: ModuleModel) {
@@ -62,7 +66,7 @@ class ModuleJSONStore: ModuleStore {
     }
 
     internal fun logAll() {
-        modules.forEach { logger.info("${it}") }
+        modules.forEach { Timber.i("${it}") }
     }
 
     override fun findOne(id: Long) : ModuleModel? {
@@ -77,48 +81,66 @@ class ModuleJSONStore: ModuleStore {
     }
 
     override fun updateLecture(module: ModuleModel, lecture: LectureModel) {
-        //var foundModule: ModuleModel? = modules.find { p -> p.id == id }
-        var lectures = module.lectures
-        //var lecture = LectureModel(1,"","","","","")
+        var foundModule: ModuleModel? = modules.find { p -> p.id == module.id }
 
-        val iterator = lectures.listIterator()
-        for(item in iterator){
-            if(item.id == lecture.id){
-                item.startTime = lecture.startTime
-                item.endTime = lecture.endTime
-                item.day = lecture.day
-                item.location = lecture.location
-                item.cancelMessage = lecture.cancelMessage
+        if (foundModule != null) {
+            var lectures = foundModule.lectures
+            //var lecture = LectureModel(1,"","","","","")
+
+            val iterator = lectures.listIterator()
+            for (item in iterator) {
+                if (item.id == lecture.id) {
+                    item.startTime = lecture.startTime
+                    item.endTime = lecture.endTime
+                    item.day = lecture.day
+                    item.location = lecture.location
+                    item.cancelMessage = lecture.cancelMessage
+                }
             }
         }
-
-    }
-
-    private fun serialize() {
-        val jsonString = gsonBuilder.toJson(modules, listType)
-        write(JSON_FILE, jsonString)
+        serialize()
     }
 
     private fun deserialize() {
-        val jsonString = read(JSON_FILE)
-        modules = Gson().fromJson(jsonString, listType)
+        val jsonString = read(context, JSON_FILE)
+        modules = gsonBuilder.fromJson(jsonString, listType)
+        users = gsonBuilder.fromJson(jsonString, listType)
     }
 
-    override fun findAllUsers(): List<StudentModel> {
-        return users
+    private fun serialize() {
+        val jsonStringModules = gsonBuilder.toJson(modules, listType)
+        //val jsonStringUsers = gsonBuilder.toJson(users, listType)
+        //val jsonString = jsonStringModules.plus(","+ jsonStringUsers)
+        write(context, JSON_FILE, jsonStringModules)
+        //write(context, JSON_FILE,jsonStringUsers)
     }
 
-    override fun createUser(student: StudentModel) {
-        users.add(student)
+    private fun deserializeUsers() {
+        val jsonString = read(context, JSON_FILE)
+        users = gsonBuilder.fromJson(jsonString, listType)
     }
 
-    override fun updateUser(student: StudentModel) {
-        var foundUser: StudentModel? = users.find { p -> p.studentID == student.studentID }
-        if (foundUser != null) {
-            foundUser.firstName = student.firstName
-            foundUser.surname = student.surname
-            foundUser.studentID = student.studentID
-            foundUser.password = student.password
+    private fun serializeUsers() {
+        val jsonString = gsonBuilder.toJson(users, listType)
+        write(context, JSON_FILE, jsonString)
+    }
+
+
+    class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
+        override fun deserialize(
+            json: JsonElement?,
+            typeOfT: Type?,
+            context: JsonDeserializationContext?
+        ): Uri {
+            return Uri.parse(json?.asString)
+        }
+
+        override fun serialize(
+            src: Uri?,
+            typeOfSrc: Type?,
+            context: JsonSerializationContext?
+        ): JsonElement {
+            return JsonPrimitive(src.toString())
         }
     }
 }

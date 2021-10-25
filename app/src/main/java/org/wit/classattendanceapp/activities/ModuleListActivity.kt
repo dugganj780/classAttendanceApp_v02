@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.classattendanceapp.R
 import org.wit.classattendanceapp.databinding.ActivityModuleListBinding
@@ -17,6 +19,7 @@ import org.wit.classattendanceapp.models.StudentModel
 class ModuleListActivity : AppCompatActivity(), ModuleListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityModuleListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
     var student = StudentModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,9 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = ModuleAdapter(app.modules.findAll(),this)
+        loadModules()
+        registerRefreshCallback()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -79,6 +85,21 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         binding.recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun loadModules(){
+        showModules(app.modules.findAll())
+    }
+
+    fun showModules (modules: List<ModuleModel>) {
+        binding.recyclerView.adapter = ModuleAdapter(modules, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { loadModules() }
     }
 }
 
