@@ -50,7 +50,7 @@ class CreateAccountActivity : AppCompatActivity() {
                     app.students.updateUser(user.copy())
                     val launcherIntent = Intent(this, LaunchActivity::class.java)
                     launcherIntent.removeExtra("student_logged_in")
-                    launcherIntent.removeExtra("module_edit")
+                    launcherIntent.removeExtra("module_selected")
                     launcherIntent.removeExtra("lecture_selected")
                     startActivityForResult(launcherIntent,0)
 

@@ -36,9 +36,9 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
 
         i("Class Activity started...")
 
-        if (intent.hasExtra("module_edit")) {
+        if (intent.hasExtra("module_selected")) {
             val layoutManager = LinearLayoutManager(this)
-            module = intent.extras?.getParcelable("module_edit")!!
+            module = intent.extras?.getParcelable("module_selected")!!
             if (intent.hasExtra("student_logged_in")){
                 student = intent.extras?.getParcelable("student_logged_in")!!
             }

@@ -70,9 +70,15 @@ class LectureActivity : AppCompatActivity() {
                     false
                 )
 
+
                 i("New Sign In: $signIn")
                 app.attendance.create(signIn.copy())
                 setResult(RESULT_OK)
+                val launcherIntent = Intent(this, ModuleActivity::class.java)
+                launcherIntent.putExtra("lecture_selected", lecture)
+                launcherIntent.putExtra("module_selected", module)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
                 finish()
             }
 
@@ -95,6 +101,11 @@ class LectureActivity : AppCompatActivity() {
                 i("New Sign In: $signIn")
                 app.attendance.create(signIn.copy())
                 setResult(RESULT_OK)
+                val launcherIntent = Intent(this, ModuleActivity::class.java)
+                launcherIntent.putExtra("lecture_selected", lecture)
+                launcherIntent.putExtra("module_selected", module)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
                 finish()
             }
 
@@ -117,6 +128,11 @@ class LectureActivity : AppCompatActivity() {
                 i("New Sign In: $signIn")
                 app.attendance.create(signIn.copy())
                 setResult(RESULT_OK)
+                val launcherIntent = Intent(this, ModuleActivity::class.java)
+                launcherIntent.putExtra("lecture_selected", lecture)
+                launcherIntent.putExtra("module_selected", module)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
                 finish()
             }
 

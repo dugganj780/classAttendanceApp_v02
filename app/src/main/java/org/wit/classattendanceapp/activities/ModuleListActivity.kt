@@ -66,7 +66,7 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
             R.id.logout -> {
                 val launcherIntent = Intent(this, LaunchActivity::class.java)
                 launcherIntent.removeExtra("student_logged_in")
-                launcherIntent.removeExtra("module_edit")
+                launcherIntent.removeExtra("module_selected")
                 launcherIntent.removeExtra("lecture_selected")
 
                 startActivityForResult(launcherIntent,0)
@@ -77,7 +77,7 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
 
     override fun onModuleClick(module: ModuleModel){
         val launcherIntent = Intent(this, ModuleActivity::class.java)
-        launcherIntent.putExtra("module_edit", module)
+        launcherIntent.putExtra("module_selected", module)
         launcherIntent.putExtra("student_logged_in", student)
         startActivityForResult(launcherIntent, 0)
     }
