@@ -43,6 +43,7 @@ class AttendanceActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(this)
             module = intent.extras?.getParcelable("module_selected")!!
             lecture = intent.extras?.getParcelable("lecture_selected")!!
+            student = intent.extras?.getParcelable("student_logged_in")!!
             var attendance = app.attendance.moduleSignIns(module,lecture)
 
             i("module id is ${module.id}")
@@ -56,5 +57,39 @@ class AttendanceActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         binding.recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.all_modules -> {
+                val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.my_modules -> {
+                val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.my_account -> {
+                val launcherIntent = Intent(this, CreateAccountActivity::class.java)
+                launcherIntent.putExtra("student_edit", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.logout -> {
+                val launcherIntent = Intent(this, LaunchActivity::class.java)
+                launcherIntent.removeExtra("student_logged_in")
+                launcherIntent.removeExtra("module_selected")
+                launcherIntent.removeExtra("lecture_selected")
+
+                startActivityForResult(launcherIntent,0)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

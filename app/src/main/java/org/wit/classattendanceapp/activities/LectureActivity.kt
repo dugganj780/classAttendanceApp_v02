@@ -3,6 +3,8 @@ package org.wit.classattendanceapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.classattendanceapp.R
 import org.wit.classattendanceapp.adapters.LectureAdapter
@@ -165,6 +167,40 @@ class LectureActivity : AppCompatActivity() {
                 startActivityForResult(launcherIntent, 0)
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.all_modules -> {
+                val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.my_modules -> {
+                val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                launcherIntent.putExtra("student_logged_in", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.my_account -> {
+                val launcherIntent = Intent(this, CreateAccountActivity::class.java)
+                launcherIntent.putExtra("student_edit", student)
+                startActivityForResult(launcherIntent,0)
+            }
+            R.id.logout -> {
+                val launcherIntent = Intent(this, LaunchActivity::class.java)
+                launcherIntent.removeExtra("student_logged_in")
+                launcherIntent.removeExtra("module_selected")
+                launcherIntent.removeExtra("lecture_selected")
+
+                startActivityForResult(launcherIntent,0)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

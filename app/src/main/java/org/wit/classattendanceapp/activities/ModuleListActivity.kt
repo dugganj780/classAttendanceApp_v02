@@ -52,10 +52,12 @@ class ModuleListActivity : AppCompatActivity(), ModuleListener {
         when(item.itemId){
             R.id.all_modules -> {
                 val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                launcherIntent.putExtra("student_logged_in", student)
                 startActivityForResult(launcherIntent,0)
             }
             R.id.my_modules -> {
                 val launcherIntent = Intent(this, ModuleListActivity::class.java)
+                launcherIntent.putExtra("student_logged_in", student)
                 startActivityForResult(launcherIntent,0)
             }
             R.id.my_account -> {
