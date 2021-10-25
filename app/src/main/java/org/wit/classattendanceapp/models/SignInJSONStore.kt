@@ -2,11 +2,8 @@ package org.wit.classattendanceapp.models
 
 import android.content.Context
 import android.net.Uri
-
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
-import timber.log.Timber
-import mu.KotlinLogging
 import java.util.*
 import java.lang.reflect.Type
 import org.wit.classattendanceapp.helpers.*
@@ -31,49 +28,11 @@ class SignInJSONStore(private val context: Context): SignInStore {
     override fun findAll(): MutableList<SignInModel> {
         return attendance
     }
-    /*
-        override fun findOne(id: Long) : ModuleModel? {
-            var foundModule: ModuleModel? = modules.find { p -> p.id == id }
-            return foundModule
-        }
-    */
+
     override fun create(signIn: SignInModel) {
         attendance.add(signIn)
         serialize()
-        //serializeUsers()
     }
-/*
-    override fun update(module: ModuleModel) {
-        var foundModule = findOne(module.id!!)
-        if (foundModule != null) {
-            foundModule.title = module.title
-            foundModule.moduleCode = module.moduleCode
-        }
-        serialize()
-    }
-
- */
-/*
-    override fun delete(module: ModuleModel) {
-        modules.remove(module)
-        serialize()
-    }
-
-    internal fun logAll() {
-        modules.forEach { Timber.i("${it}") }
-    }
-
-    override fun findOne(id: Long) : ModuleModel? {
-        var foundModule: ModuleModel? = modules.find { p -> p.id == id }
-        return foundModule
-    }
-
-    override fun findLectures(id: Long) : List<LectureModel>{
-        var foundModule: ModuleModel? = modules.find { p -> p.id == id }
-        var lectures = foundModule!!.lectures
-        return lectures
-    }
- */
 
     override fun moduleSignIns(module: ModuleModel,lecture: LectureModel): MutableList<SignInModel> {
         i("$module")
@@ -111,29 +70,12 @@ class SignInJSONStore(private val context: Context): SignInStore {
         val jsonString = read(context, JSON_FILE)
         attendance = gsonBuilderSignIn.fromJson(jsonStringSignIn, listTypeSignIn)
         modules = gsonBuilder.fromJson(jsonString, listType)
-        //users = gsonBuilder.fromJson(jsonString, listType)
     }
 
     private fun serialize() {
         val jsonStringSignIn = gsonBuilderSignIn.toJson(attendance, listTypeSignIn)
-        //val jsonStringUsers = gsonBuilder.toJson(users, listType)
-        //val jsonString = jsonStringModules.plus(","+ jsonStringUsers)
         write(context, JSON_FILE_SIGNIN, jsonStringSignIn)
-        //write(context, JSON_FILE,jsonStringUsers)
     }
-/*
-    private fun deserializeUsers() {
-        val jsonString = read(context, JSON_FILE)
-        users = gsonBuilder.fromJson(jsonString, listType)
-    }
-
-    private fun serializeUsers() {
-        val jsonString = gsonBuilder.toJson(users, listType)
-        write(context, JSON_FILE, jsonString)
-    }
-
- */
-
 
     class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
         override fun deserialize(

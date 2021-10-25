@@ -36,5 +36,4 @@ class ModuleAdapter constructor(private var modules: List<ModuleModel>, private 
             binding.root.setOnClickListener{listener.onModuleClick(module)}
         }
     }
-
 }

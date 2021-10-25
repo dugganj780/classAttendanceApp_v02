@@ -3,13 +3,10 @@ package org.wit.classattendanceapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.google.android.material.snackbar.Snackbar
-import org.wit.classattendanceapp.R
 import org.wit.classattendanceapp.main.MainApp
 import org.wit.classattendanceapp.databinding.ActivityLoginBinding
 import org.wit.classattendanceapp.models.StudentModel
-import timber.log.Timber
 import timber.log.Timber.i
 
 class LoginActivity : AppCompatActivity() {
@@ -17,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
     var student = StudentModel(0,"","","")
     lateinit var app: MainApp
 
-
+    //Creates Login Screen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -32,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
             student.studentID = binding.studentId.text.toString().toLong()
             student.password = binding.password.text.toString()
 
+            //Iterates through existing users for basic authentication
             val iterator = app.students.findAllUsers().listIterator()
             for(item in iterator){
                 i("${item.studentID}")
@@ -44,19 +42,13 @@ class LoginActivity : AppCompatActivity() {
                     startActivityForResult(launcherIntent, 0)
 
                 }
-
+                //If user not found, Snackbar informs user that credentials are incorrect
                 else{
-                    //i("${app.students}")
-                    //i("StudentID: ${student.studentID} Password: ${student.password}")
                     i("StudentID: ${student.studentID.javaClass} Password: ${student.password.javaClass}")
                     Snackbar.make(it,"Invalid User Credentials", Snackbar.LENGTH_LONG)
                         .show()
                 }
-
-
             }
-
-
         }
     }
 }

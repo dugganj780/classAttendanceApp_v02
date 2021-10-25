@@ -3,7 +3,6 @@ package org.wit.classattendanceapp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.wit.classattendanceapp.activities.ModuleActivity
 import org.wit.classattendanceapp.databinding.CardLectureBinding
 import org.wit.classattendanceapp.models.LectureModel
 
@@ -35,7 +34,6 @@ class LectureAdapter(private var lectures: List<LectureModel>, private val liste
 
         fun bind(lecture: LectureModel, listener: LectureListener) {
             var lectureTimes = lecture.startTime +" to "+lecture.endTime
-
 
             binding.day.text = lecture.day
             binding.lectureTimes.text = lectureTimes

@@ -3,16 +3,9 @@ package org.wit.classattendanceapp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.wit.classattendanceapp.activities.ModuleActivity
 import org.wit.classattendanceapp.databinding.ActivitySigninBinding
 import org.wit.classattendanceapp.models.SignInModel
 
-/*
-interface LectureListener {
-    fun onLectureClick(lecture: LectureModel)
-}
-
- */
 
 class SignInAdapter(private var attendance: List<SignInModel>) :
     RecyclerView.Adapter<SignInAdapter.MainHolder>() {
@@ -50,7 +43,6 @@ class SignInAdapter(private var attendance: List<SignInModel>) :
             if (signIn.recording){
                 status = "Recording"
             }
-
 
             binding.moduleCode.text = signIn.moduleCode
             binding.day.text = signIn.day

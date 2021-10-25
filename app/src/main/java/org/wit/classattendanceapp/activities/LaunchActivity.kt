@@ -21,11 +21,13 @@ class LaunchActivity : AppCompatActivity() {
 
         app = application as MainApp
 
+        //If existing user, user clicks to go to Login
         binding.btnLogin.setOnClickListener {
             val launcherIntent = Intent(this, LoginActivity::class.java)
             startActivityForResult(launcherIntent, 0)
         }
 
+        //If new user, clicks to go to Create Account Screen
         binding.btnCreateAccount.setOnClickListener {
             val launcherIntent = Intent(this, CreateAccountActivity::class.java)
             startActivityForResult(launcherIntent, 0)

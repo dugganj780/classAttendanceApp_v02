@@ -6,17 +6,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import org.wit.classattendanceapp.R
-import org.wit.classattendanceapp.adapters.LectureAdapter
 import org.wit.classattendanceapp.databinding.ActivityAttendanceBinding
 import org.wit.classattendanceapp.main.MainApp
 import org.wit.classattendanceapp.models.ModuleModel
 import org.wit.classattendanceapp.adapters.SignInAdapter
-import org.wit.classattendanceapp.adapters.ModuleAdapter
-import org.wit.classattendanceapp.databinding.ActivityModuleBinding
 import org.wit.classattendanceapp.models.LectureModel
-import org.wit.classattendanceapp.models.SignInModel
 import org.wit.classattendanceapp.models.StudentModel
 import timber.log.Timber.i
 
@@ -39,6 +34,7 @@ class AttendanceActivity : AppCompatActivity() {
 
         i("Class Activity started...")
 
+        //Populates the sign-ins associated with a module and lecture
         if (intent.hasExtra("module_selected")) {
             val layoutManager = LinearLayoutManager(this)
             module = intent.extras?.getParcelable("module_selected")!!
@@ -54,16 +50,19 @@ class AttendanceActivity : AppCompatActivity() {
         }
     }
 
+    //Ensure new sign-ins show in list
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         binding.recyclerView.adapter?.notifyDataSetChanged()
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    // Creates Main Menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    //Controls main menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.all_modules -> {

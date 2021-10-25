@@ -7,10 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.classattendanceapp.R
-import org.wit.classattendanceapp.adapters.LectureAdapter
 import org.wit.classattendanceapp.databinding.ActivityLectureAdminBinding
 import org.wit.classattendanceapp.databinding.ActivityLectureBinding
-import org.wit.classattendanceapp.databinding.ActivityModuleBinding
 import org.wit.classattendanceapp.main.MainApp
 import org.wit.classattendanceapp.models.LectureModel
 import org.wit.classattendanceapp.models.ModuleModel
@@ -39,11 +37,10 @@ class LectureActivity : AppCompatActivity() {
             module = intent.extras?.getParcelable("module_selected")!!
             student = intent.extras?.getParcelable("student_logged_in")!!
 
-            Timber.i("module id is ${module.id}")
-            //binding.recyclerView.layoutManager = layoutManager
-            // binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
+            i("module id is ${module.id}")
         }
 
+        //If a student and not admin is using, ActivityLectureBinding loads
         if (!student.isAdmin) {
             lateinit var binding: ActivityLectureBinding
             binding = ActivityLectureBinding.inflate(layoutInflater)
@@ -139,9 +136,8 @@ class LectureActivity : AppCompatActivity() {
             }
 
         }
-
+        //If admin is using, ActivityLectureAdmin loads
         else{
-
             lateinit var binding: ActivityLectureAdminBinding
             binding = ActivityLectureAdminBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -169,11 +165,13 @@ class LectureActivity : AppCompatActivity() {
         }
     }
 
+    // Creates Main Menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    //Controls Main Menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.all_modules -> {
@@ -203,10 +201,3 @@ class LectureActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
-
-/*
-data class signIn(var studentID: Long = 0, var firstName:String ="", var surname:String ="", var moduleCode: String = "", var day:String = "", var startTime: String = "",
-                  var signTime: String = "", var inPerson: Boolean = false, var live: Boolean = false,
-                  var recording: Boolean = true){}
-
- */

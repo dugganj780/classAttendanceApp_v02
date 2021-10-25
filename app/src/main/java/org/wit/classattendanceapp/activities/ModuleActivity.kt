@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import org.wit.classattendanceapp.R
 import org.wit.classattendanceapp.databinding.ActivityModuleBinding
 import org.wit.classattendanceapp.main.MainApp
 import org.wit.classattendanceapp.models.ModuleModel
 import org.wit.classattendanceapp.adapters.LectureAdapter
 import org.wit.classattendanceapp.adapters.LectureListener
-import org.wit.classattendanceapp.adapters.ModuleAdapter
 import org.wit.classattendanceapp.models.LectureModel
 import org.wit.classattendanceapp.models.StudentModel
 import timber.log.Timber.i
@@ -35,6 +33,7 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
 
         i("Class Activity started...")
 
+        //Uses Intent to display lectures associated with Module
         if (intent.hasExtra("module_selected")) {
             val layoutManager = LinearLayoutManager(this)
             module = intent.extras?.getParcelable("module_selected")!!
@@ -47,26 +46,6 @@ class ModuleActivity : AppCompatActivity(), LectureListener{
             binding.recyclerView.layoutManager = layoutManager
             binding.recyclerView.adapter = LectureAdapter(app.modules.findLectures(module.id),this)
         }
-
-        /*
-        binding.btnAdd.setOnClickListener() {
-            module.moduleCode = binding.moduleCode.text.toString()
-            module.title = binding.moduleTitle.text.toString()
-
-            if (module.moduleCode.isNotEmpty()){
-                app.modules.create(module.copy())
-                i("add Button Pressed:  ${module.moduleCode}: ${module.title}")
-                setResult(RESULT_OK)
-                finish()
-            }
-            else{
-                Snackbar
-                    .make(it, "Please Enter a module Code", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
-     */
-
     }
 
 

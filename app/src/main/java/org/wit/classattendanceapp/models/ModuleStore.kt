@@ -7,5 +7,4 @@ interface ModuleStore {
     fun findOne(id: Long): ModuleModel?
     fun findLectures(id:Long): List<LectureModel>
     fun updateLecture(module: ModuleModel, lecture: LectureModel)
-
 }

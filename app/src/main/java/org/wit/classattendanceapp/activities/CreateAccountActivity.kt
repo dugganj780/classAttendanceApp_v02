@@ -29,6 +29,7 @@ class CreateAccountActivity : AppCompatActivity() {
 
         app = application as MainApp
 
+        //Uses intent to update the logged-in user instead of creating a new one
         if(intent.hasExtra("student_edit")){
             edit = true
             user = intent.extras?.getParcelable("student_edit")!!
@@ -42,10 +43,12 @@ class CreateAccountActivity : AppCompatActivity() {
             user.studentID = binding.studentId.text.toString().toLong()
             user.password = binding.password.text.toString()
 
+            //Validation to ensure User inputs to all fields
             if (user.firstName.isEmpty() || user.surname.isEmpty() || user.password.isEmpty() ) {
                 Snackbar.make(it, R.string.data_missing, Snackbar.LENGTH_LONG)
                     .show()
             } else {
+                //Controls if new user added or existing user updated
                 if(edit){
                     app.students.updateUser(user.copy())
                     val launcherIntent = Intent(this, LaunchActivity::class.java)
@@ -54,8 +57,9 @@ class CreateAccountActivity : AppCompatActivity() {
                     launcherIntent.removeExtra("lecture_selected")
                     startActivityForResult(launcherIntent,0)
 
-                }
+                } else {
                     app.students.createUser(user.copy())
+                }
             }
 
             Timber.i("New User Created: $user")

@@ -15,8 +15,8 @@
     <string name="hint_password">Password</string>
     <string name="hint_firstName">First Name</string>
     <string name="hint_surname">Surname</string>
-    <string name="hint_cancelMessage">Enter message if cancelling</string>
-    <string name="button_cancelLecture">Cancel Lecture</string>
+    <string name="hint_cancelMessage">Enter message to students</string>
+    <string name="button_cancelLecture">Update Notification</string>
     <string name="data_missing">Data missing. Please check and try again.</string>
     <string name="menu_allModules">All Modules</string>
     <string name="menu_myModules">My Modules</string>
