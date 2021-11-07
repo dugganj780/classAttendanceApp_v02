@@ -11,6 +11,7 @@
     <string name="button_seeAttendance">Check Attendance</string>
     <string name="button_login">Login</string>
     <string name="button_createAccount">Create Account</string>
+    <string name="button_moduleSelection">Confirm Selection</string>
     <string name="hint_studentId">Student Number</string>
     <string name="hint_password">Password</string>
     <string name="hint_firstName">First Name</string>

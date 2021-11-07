@@ -14,13 +14,17 @@
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/activity_main.xml" value="1.0" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/activity_module.xml" value="0.19166666666666668" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/activity_module_list.xml" value="0.4" />
+        <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/activity_module_selection.xml" value="0.264" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/activity_signin.xml" value="0.21302083333333333" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/card_lecture.xml" value="0.264" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/card_module.xml" value="0.18802083333333333" />
+        <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/card_module_selection.xml" value="0.536" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/layout/card_placemark.xml" value="0.4" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/menu/main_menu.xml" value="0.19166666666666668" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/menu/menu_main.xml" value="0.4" />
         <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/menu/menu_module.xml" value="0.1953125" />
+        <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.13177083333333334" />
+        <entry key="..\:/dev/09 mobile app development/assignments02/classAttendance_v01/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.13177083333333334" />
       </map>
     </option>
   </component>

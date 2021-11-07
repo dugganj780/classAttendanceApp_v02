@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClassAttendanceApp">
         <activity
+            android:name=".activities.ModuleSelectionActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.AttendanceActivity"
             android:exported="true" />
         <activity
